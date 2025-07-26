@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glow Bean Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+    :root {
+      --primary: #b17c6b;
+      --accent: #f2d4cb;
+      --text: #4a3b35;
+      --card: #fff;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-image: url("background.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        background-color: #bb6a6abe;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .logo img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .logo span {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #4b2c20;
+    }
+    h1, h2, .nav-links a {
+      font-family: '', ;
+      font-weight: 600;
+      color: #4b2c20;
+    }
+
+    .nav-links {
+        list-style: none;
+        align-items: center;
+        display: flex;
+        gap: 25px;
+    }
+    
+    .nav-links li a {
+        text-decoration: none;
+        color: #4b2c20;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: color 0.3s;
+    }
+    
+    .nav-links li a:hover {
+        color: lightgoldenrodyellow;
+        text-underline-offset: 2px;
+        text-decoration: underline;
+    }
+
+    #cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #fff3e0;
+      padding: 8px 12px;
+      border-radius: 20px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    #cart-img {
+      width: 24px;
+      height: 24px
+    }
+    
+    #cart-count {
+      font-weight: bold;
+      color: #a0522d;
+      font-size: 16px
+    }
+
+    section {
+      padding: 1rem;
+    }
+
+    #home-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+}
+
+    .home-section {
+      font-family: 'georgia', serif;
+      text-align: center;
+      padding: 4rem 2rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+
+    .home-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #4b2c20;
+      text-align: center;
+    }
+
+    .home-section p {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #38231b;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .menu-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .menu-section h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #240404;
+    }
+
+    .menu-card {
+      background-color: rgb(247, 209, 215);
+      border-radius: 16px;
+      width: 230px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s ease;
+      animation: fadeInUp 0.5s ease-in-out;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .menu-card img {
+      width: 100%;
+      height: 160px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 12px;
+    }
+
+    .menu-card h3 {
+      font-size: 1.2rem;
+      margin: 0.5rem 0 0.2rem;
+      color: #3a251d;
+    }
+
+    .menu-card p {
+      margin: 0.25rem 0;
+      font-size: 1rem;
+      color: #240404;
+    }
+
+    .menu-card .description {
+      font-size: 0.9rem;
+      color: #240404;
+      margin-bottom: 12px;
+    }
+
+    .menu-card button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background-color 0.3s;
+    }
+
+    .menu-card button:hover {
+      background-color: #8f6252;
+    }
+
+    .gallery-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      padding: 2rem;
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .gallery-card {
+      background-color: rgb(247, 209, 215);
+      border-radius: 16px;
+      width: 200px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      animation: fadeInUp 0.5s ease-in-out;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-bottom: 1px solid #eee;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: rgba(51, 4, 4, 0.589);
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
+    }
+
+    button[type="submit"] {
+      background-color: var(--primary);
+      color: white;
+      font-size: 1rem;
+    }
+
+    button[type="submit"]:hover {
+      text-decoration: none;
+      background-color: #8f6252;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--accent);
+      color: var(--text);
+      margin-top: 2rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+  <div style="flex: 1;" class="logo">
+    <img src="logo.png" alt="Glow Bean Cafe Logo">
+    <span>Glow Bean Café</span>
+  </div>
+
+  <ul class="nav-links" style="flex: 1; justify-content: center; display: flex; padding: 0; margin: 0;">
+    <li><a href="#home-container">Home</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <div style="flex: 1; display: flex; justify-content: flex-end;">
+    <div id="cart-icon">
+      <img src="cart.png" alt="Cart Icon" style="width: 24px; height: 24px;">
+      <span id="cart-Count">0</span>
+    </div>
+  </div>
+</nav>
+
+  <section id="home-container">
+  <div class="home-section">
+    <h1>Welcome to Glow Bean Café</h1>
+    <p><strong> in the heart of the city, Glow Bean Café is your go-to spot for artisanal coffee, 
+      handcrafted drinks, and peaceful vibes. Whether you’re catching up with friends, working on your next big idea,
+      or simply enjoying a quiet moment alone — we’re here to make every sip special.</strong>
+    </p>
+    <p><strong>Inspired by comfort and connection, our cafe is more than just a coffee shop — it’s a place to feel at home.
+      From our carefully curated menu to our inviting ambiance, everything is designed with warmth and glow in mind.</strong>
+    </p>
+  </div>
+</section>
+
+
+  <!-- Coffee & Espresso -->
+  <section id="menu">
+    <h2><strong>Coffee & Espresso</strong></h2>
+    <div class="menu-section">
+      <div class="menu-card">
+        <img src="Espresso.jpg" alt="Espresso">
+        <h3>Espresso</h3>
+        <p>Rs. 470</p>
+        <p class="description">Single or double shot of our single-origin espresso</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="Americano.jpg" alt="Americano">
+        <h3>Americano</h3>
+        <p>Rs. 470</p>
+        <p class="description">Espresso diluted with hot water</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="Caramel Dolce Latte.jpg" alt="Caramel Dolce Latte">
+        <h3>Caramel Dolce Latte</h3>
+        <p>Rs. 680</p>
+        <p class="description">Espresso with steamed milk and light foam</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="Cappuccino.jpg" alt="Cappuccino">
+        <h3>Cappuccino</h3>
+        <p>Rs. 570</p>
+        <p class="description">Espresso with equal parts steamed milk and foam</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="mocha.jpg" alt="Mocha">
+        <h3>Mocha</h3>
+        <p>Rs. 640</p>
+        <p class="description">Espresso with chocolate and steamed milk</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teas & Other Drinks -->
+  <section>
+    <h2><strong>Teas & Other Drinks</strong></h2>
+    <div class="menu-section">
+      <div class="menu-card">
+        <img src="house chai.jpg" alt="House Chai">
+        <h3>House Chai</h3>
+        <p>Rs. 450</p>
+        <p class="description">Spiced tea with steamed milk</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="London Fog.jpg" alt="London Fog">
+        <h3>London Fog</h3>
+        <p>Rs. 750</p>
+        <p class="description">Earl Grey tea with vanilla and steamed milk</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="Caramel iced coffee.jpg" alt="Iced Coffee">
+        <h3>Iced Coffee</h3>
+        <p>Rs. 700</p>
+        <p class="description">Cold brew concentrate served over ice</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="hot chocolate.jpg" alt="Hot Chocolate">
+        <h3>Hot Chocolate</h3>
+        <p>Rs. 680</p>
+        <p class="description">Rich handmade chocolate with steamed milk</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="Chocolate Cherry Smoothie.jpg" alt="Chocolate Cherry Smoothie">
+        <h3>Chocolate Cherry Smoothie</h3>
+        <p>Rs. 700</p>
+        <p class="description">Creamy blend of chocolate and sweet cherries.</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pastries & Light Bites -->
+  <section>
+    <h2><strong>Pastries & Light Bites</strong></h2>
+    <div class="menu-section">
+      <div class="menu-card">
+        <img src="Croissant.jpg" alt="Croissant">
+        <h3>Croissant</h3>
+        <p>Rs. 400</p>
+        <p class="description">Freshly baked classic butter croissant</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="chocolate Almond Croissant.jpg" alt="Chocolate Almond Croissant">
+        <h3>Chocolate Almond Croissant</h3>
+        <p>Rs. 460</p>
+        <p class="description">Buttery croissant filled with almond paste</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="menu-card">
+        <img src="Avocado Toast.jpg" alt="Avocado Toast">
+        <h3>Avocado Toast</h3>
+        <p>Rs. 550</p>
+        <p class="description">Sourdough with avocado, cherry tomatoes, and herbs</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+  <h2><strong>Gallery</strong></h2>
+  <div class="gallery-section">
+    <div class="gallery-card">
+      <img src="g1.jpg" alt="Gallery Image 1" />
+    </div>
+  <div class="gallery-card">
+    <img src="g2.jpg" alt="Gallery Image 2" />
+  </div>
+    <div class="gallery-card">
+      <img src="g3.jpg" alt="Gallery Image 3" />
+    </div>
+    <div class="gallery-card">
+      <img src="g4.jpg" alt="Gallery Image 4" />
+    </div>
+    <div class="gallery-card">
+      <img src="g5.jpg" alt="Gallery Image 5" />
+    </div>
+    <div class="gallery-card">
+      <img src="g6.jpg" alt="Gallery Image 6" />
+    </div>
+    <div class="gallery-card">
+      <img src="g7.jpg" alt="Gallery Image 7" />
+    </div>
+    <div class="gallery-card">
+      <img src="g8.jpg" alt="Gallery Image 8" />
+    </div>
+    <div class="gallery-card">
+      <img src="g9.jpg" alt="Gallery Image 9" />
+    </div>
+    <div class="gallery-card">
+      <img src="g10.jpg" alt="Gallery Image 10" />
+  </div>
+</section>
+
+  <!-- Contact Form -->
+  <section id="contact">
+    <h2><strong>Contact Us</strong></h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Glow Bean Cafe. All rights reserved.
+  </footer>
+
+<script>
+  let count = 0;
+  const cartCount = document.getElementById("cart-Count");
+  const buttons = document.querySelectorAll(".add-to-cart");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      count++;
+      cartCount.textContent = count;
+    });
+  });
+</script>
+
+</body>
+</html>
